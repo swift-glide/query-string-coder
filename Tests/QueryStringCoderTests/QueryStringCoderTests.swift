@@ -1,5 +1,5 @@
 import XCTest
-@testable import FormDataCoding
+@testable import QueryStringCoder
 
 struct Country: Decodable {
   var name: String
@@ -8,10 +8,10 @@ struct Country: Decodable {
 }
 
 class FormDataDecodingTests: XCTestCase {
-    var decoder: FormDataDecoder!
+    var decoder: QueryStringDecoder!
 
     override func setUp() {
-        self.decoder = FormDataDecoder()
+        self.decoder = QueryStringDecoder()
     }
 
   func testDecodeSuccess() {

@@ -33,7 +33,7 @@ extension FormContent.URLEncoded: ExpressibleByStringLiteral {
   }
 }
 
-public final class FormDataDecoder {
+public final class QueryStringDecoder {
   public func decode<T>(
     _ decodable: T.Type,
     from body: ByteBuffer
