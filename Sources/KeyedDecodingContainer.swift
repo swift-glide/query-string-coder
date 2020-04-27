@@ -1,7 +1,7 @@
 import Foundation
 import Glide
 
-extension DictionaryDecoder {
+extension StringKeyValueDecoder {
   final class KeyedContainer<Key> where Key: CodingKey {
     var codingPath: [CodingKey]
     var userInfo: [CodingUserInfoKey: Any]
@@ -15,7 +15,7 @@ extension DictionaryDecoder {
   }
 }
 
-extension DictionaryDecoder.KeyedContainer: KeyedDecodingContainerProtocol {
+extension StringKeyValueDecoder.KeyedContainer: KeyedDecodingContainerProtocol {
   var allKeys: [Key] {
     data.keys.compactMap { Key(stringValue: String($0)) }
   }
@@ -53,7 +53,7 @@ extension DictionaryDecoder.KeyedContainer: KeyedDecodingContainerProtocol {
   }
 
   func superDecoder() throws -> Decoder {
-    DictionaryDecoder(data: data)
+    StringKeyValueDecoder(data: data)
   }
 
   func superDecoder(forKey key: Key) throws -> Decoder {
@@ -61,24 +61,27 @@ extension DictionaryDecoder.KeyedContainer: KeyedDecodingContainerProtocol {
   }
 }
 
-extension DictionaryDecoder.KeyedContainer: FormDataDecodingContainer {}
+extension StringKeyValueDecoder.KeyedContainer: FormDataDecodingContainer {}
 
-private extension DecodingError {
-    static func typeMismatch(_ type: Any.Type, at path: [CodingKey]) -> DecodingError {
-        let pathString = path.map { $0.stringValue }.joined(separator: ".")
-        let context = DecodingError.Context(
-            codingPath: path,
-            debugDescription: "Data found at '\(pathString)' was not \(type)"
-        )
-        return Swift.DecodingError.typeMismatch(type, context)
-    }
+extension DecodingError {
+  static func typeMismatch(_ type: Any.Type, at path: [CodingKey]) -> DecodingError {
+    let pathString = path.map { $0.stringValue }.joined(separator: ".")
 
-    static func valueNotFound(_ type: Any.Type, at path: [CodingKey]) -> DecodingError {
-        let pathString = path.map { $0.stringValue }.joined(separator: ".")
-        let context = DecodingError.Context(
-            codingPath: path,
-            debugDescription: "No \(type) was found at '\(pathString)'"
-        )
-        return Swift.DecodingError.valueNotFound(type, context)
-    }
+    let context = DecodingError.Context(
+      codingPath: path,
+      debugDescription: "Data found at '\(pathString)' was not \(type)"
+    )
+    return Swift.DecodingError.typeMismatch(type, context)
+  }
+
+  static func valueNotFound(_ type: Any.Type, at path: [CodingKey]) -> DecodingError {
+    let pathString = path.map { $0.stringValue }.joined(separator: ".")
+
+    let context = DecodingError.Context(
+      codingPath: path,
+      debugDescription: "No \(type) was found at '\(pathString)'"
+    )
+    
+    return Swift.DecodingError.valueNotFound(type, context)
+  }
 }

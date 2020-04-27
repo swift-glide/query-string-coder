@@ -1,6 +1,6 @@
 import Foundation
 
-extension DictionaryDecoder {
+extension StringKeyValueDecoder {
     final class UnkeyedContainer {
         var codingPath: [CodingKey]
         var userInfo: [CodingUserInfoKey: Any]
@@ -12,8 +12,8 @@ extension DictionaryDecoder {
   }
 }
 
-extension DictionaryDecoder.UnkeyedContainer: UnkeyedDecodingContainer {
-  var count: Int? { 0 }
+extension StringKeyValueDecoder.UnkeyedContainer: UnkeyedDecodingContainer {
+  var count: Int? { nil }
 
   var isAtEnd: Bool { true }
 
@@ -25,17 +25,14 @@ extension DictionaryDecoder.UnkeyedContainer: UnkeyedDecodingContainer {
 
   func decode<T>(_ type: T.Type) throws -> T where T : Decodable {
     throw DecodingError.dataCorrupted(.init(codingPath: self.codingPath, debugDescription: "Not supported."))
-
   }
 
   func nestedUnkeyedContainer() throws -> UnkeyedDecodingContainer {
     throw DecodingError.dataCorrupted(.init(codingPath: self.codingPath, debugDescription: "Not supported."))
-
   }
 
   func nestedContainer<NestedKey>(keyedBy type: NestedKey.Type) throws -> KeyedDecodingContainer<NestedKey> where NestedKey : CodingKey {
     throw DecodingError.dataCorrupted(.init(codingPath: self.codingPath, debugDescription: "Not supported."))
-
   }
 
   func superDecoder() throws -> Decoder {
@@ -43,4 +40,4 @@ extension DictionaryDecoder.UnkeyedContainer: UnkeyedDecodingContainer {
   }
 }
 
-extension DictionaryDecoder.UnkeyedContainer: FormDataDecodingContainer {}
+extension StringKeyValueDecoder.UnkeyedContainer: FormDataDecodingContainer {}

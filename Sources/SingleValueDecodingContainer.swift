@@ -1,6 +1,6 @@
 import Foundation
 
-extension DictionaryDecoder {
+extension StringKeyValueDecoder {
   final class SingleValueContainer {
     var codingPath: [CodingKey]
     var userInfo: [CodingUserInfoKey: Any]
@@ -12,7 +12,7 @@ extension DictionaryDecoder {
   }
 }
 
-extension DictionaryDecoder.SingleValueContainer: SingleValueDecodingContainer {
+extension StringKeyValueDecoder.SingleValueContainer: SingleValueDecodingContainer {
   private func expectNonNull<T>(_ type: T.Type) throws {
     guard !self.decodeNil() else {
       throw DecodingError.valueNotFound(
@@ -34,4 +34,4 @@ extension DictionaryDecoder.SingleValueContainer: SingleValueDecodingContainer {
   }
 }
 
-extension DictionaryDecoder.SingleValueContainer: FormDataDecodingContainer {}
+extension StringKeyValueDecoder.SingleValueContainer: FormDataDecodingContainer {}

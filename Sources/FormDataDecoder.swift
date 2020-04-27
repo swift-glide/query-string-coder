@@ -1,6 +1,5 @@
 import Foundation
-//import NIO
-
+import NIO
 
 public enum FormContent {
   public struct URLEncoded {
@@ -24,7 +23,6 @@ public enum FormContent {
   }
 }
 
-
 extension FormContent.URLEncoded: ExpressibleByStringLiteral {
   public init(_ string: String) {
     self = .init(storage: FormContent.URLEncoded.parse(string))
@@ -36,22 +34,30 @@ extension FormContent.URLEncoded: ExpressibleByStringLiteral {
 }
 
 public final class FormDataDecoder {
-    public func decode<T>(
-      _ decodable: T.Type,
-      from data: Data
-      //    from body: ByteBuffer,
-      //    headers _: HTTPHeaders
-    ) throws -> T where T: Decodable {
-      //    let string = body.getString(at: body.readerIndex, length: body.readableBytes) ?? ""
-      let string = String(data: data, encoding: .utf8)!
-      let formContent = FormContent.URLEncoded(string)
+  public func decode<T>(
+    _ decodable: T.Type,
+    from body: ByteBuffer
+  ) throws -> T where T: Decodable {
+    let string = body.getString(at: body.readerIndex, length: body.readableBytes) ?? ""
+    let formContent = FormContent.URLEncoded(string)
 
-      let decoder = DictionaryDecoder(data: formContent.storage)
-      return try T(from: decoder)
-    }
+    let decoder = StringKeyValueDecoder(data: formContent.storage)
+    return try T(from: decoder)
   }
 
-final class DictionaryDecoder {
+  public func decode<T>(
+    _ decodable: T.Type,
+    from data: Data
+  ) throws -> T where T: Decodable {
+    let string = String(data: data, encoding: .utf8)!
+    let formContent = FormContent.URLEncoded(string)
+
+    let decoder = StringKeyValueDecoder(data: formContent.storage)
+    return try T(from: decoder)
+  }
+}
+
+final class StringKeyValueDecoder {
   var codingPath: [CodingKey] = []
   var userInfo: [CodingUserInfoKey: Any] = [:]
 
@@ -63,7 +69,7 @@ final class DictionaryDecoder {
   }
 }
 
-extension DictionaryDecoder: Decoder {
+extension StringKeyValueDecoder: Decoder {
   fileprivate func assertCanCreateContainer() {
     precondition(container == nil)
   }
@@ -79,6 +85,7 @@ extension DictionaryDecoder: Decoder {
 
   func unkeyedContainer() -> UnkeyedDecodingContainer {
     assertCanCreateContainer()
+    precondition(container == nil)
 
     let container = UnkeyedContainer(codingPath: codingPath, userInfo: userInfo)
     self.container = container
