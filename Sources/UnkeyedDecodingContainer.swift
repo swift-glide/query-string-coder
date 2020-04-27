@@ -20,26 +20,26 @@ extension DictionaryDecoder.UnkeyedContainer: UnkeyedDecodingContainer {
   var currentIndex: Int { 0 }
 
   func decodeNil() throws -> Bool {
-    throw DecodingError.dataCorrupted(.init(codingPath: self.codingPath, debugDescription: "Not yet supported."))
+    throw DecodingError.dataCorrupted(.init(codingPath: self.codingPath, debugDescription: "Not supported."))
   }
 
   func decode<T>(_ type: T.Type) throws -> T where T : Decodable {
-    throw DecodingError.dataCorrupted(.init(codingPath: self.codingPath, debugDescription: "Not yet supported."))
+    throw DecodingError.dataCorrupted(.init(codingPath: self.codingPath, debugDescription: "Not supported."))
 
   }
 
   func nestedUnkeyedContainer() throws -> UnkeyedDecodingContainer {
-    throw DecodingError.dataCorrupted(.init(codingPath: self.codingPath, debugDescription: "Not yet supported."))
+    throw DecodingError.dataCorrupted(.init(codingPath: self.codingPath, debugDescription: "Not supported."))
 
   }
 
   func nestedContainer<NestedKey>(keyedBy type: NestedKey.Type) throws -> KeyedDecodingContainer<NestedKey> where NestedKey : CodingKey {
-    throw DecodingError.dataCorrupted(.init(codingPath: self.codingPath, debugDescription: "Not yet supported."))
+    throw DecodingError.dataCorrupted(.init(codingPath: self.codingPath, debugDescription: "Not supported."))
 
   }
 
   func superDecoder() throws -> Decoder {
-    throw DecodingError.dataCorrupted(.init(codingPath: self.codingPath, debugDescription: "Not yet supported."))
+    throw DecodingError.dataCorrupted(.init(codingPath: self.codingPath, debugDescription: "Not supported."))
   }
 }
 

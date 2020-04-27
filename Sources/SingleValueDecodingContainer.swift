@@ -30,7 +30,7 @@ extension DictionaryDecoder.SingleValueContainer: SingleValueDecodingContainer {
   }
   
   func decode<T>(_ type: T.Type) throws -> T where T : Decodable {
-    throw DecodingError.dataCorrupted(.init(codingPath: self.codingPath, debugDescription: "Not yet supported."))
+    throw DecodingError.dataCorrupted(.init(codingPath: self.codingPath, debugDescription: "Not supported."))
   }
 }
 

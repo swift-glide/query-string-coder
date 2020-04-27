@@ -45,11 +45,11 @@ extension DictionaryDecoder.KeyedContainer: KeyedDecodingContainerProtocol {
   }
 
   func nestedUnkeyedContainer(forKey key: Key) throws -> UnkeyedDecodingContainer {
-    throw DecodingError.dataCorrupted(.init(codingPath: self.codingPath + [key], debugDescription: "Not yet supported."))
+    throw DecodingError.dataCorrupted(.init(codingPath: self.codingPath + [key], debugDescription: "Not supported."))
   }
 
   func nestedContainer<NestedKey>(keyedBy type: NestedKey.Type, forKey key: Key) throws -> KeyedDecodingContainer<NestedKey> where NestedKey: CodingKey {
-    throw DecodingError.dataCorrupted(.init(codingPath: self.codingPath + [key], debugDescription: "Not yet supported."))
+    throw DecodingError.dataCorrupted(.init(codingPath: self.codingPath + [key], debugDescription: "Not supported."))
   }
 
   func superDecoder() throws -> Decoder {
@@ -57,7 +57,7 @@ extension DictionaryDecoder.KeyedContainer: KeyedDecodingContainerProtocol {
   }
 
   func superDecoder(forKey key: Key) throws -> Decoder {
-    throw DecodingError.dataCorrupted(.init(codingPath: self.codingPath + [key], debugDescription: "Not yet supported."))
+    throw DecodingError.dataCorrupted(.init(codingPath: self.codingPath + [key], debugDescription: "Not supported."))
   }
 }
 
