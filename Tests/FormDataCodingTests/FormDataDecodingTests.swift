@@ -15,18 +15,20 @@ class FormDataDecodingTests: XCTestCase {
     }
 
   func testDecodeSuccess() {
-    let query = "name=France&population=13000000&commonWealth=false"
+    let query = "name=France&population=67000000&commonWealth=false"
     let data = query.data(using: .utf8)
 
-    let value = try! decoder.decode(Country.self, from: data!)
-    XCTAssertEqual(value.name, "France")
+    let country = try! decoder.decode(Country.self, from: data!)
+    XCTAssertEqual(country.name, "France")
+    XCTAssertEqual(country.population, 67_000_000)
+    XCTAssertFalse(country.commonWealth)
   }
 
   func testDecodeFailure() {
      let query = "name=France&population=yes&commonWealth=false"
      let data = query.data(using: .utf8)
 
-     let value = try? decoder.decode(Country.self, from: data!)
-     XCTAssertNil(value)
+     let country = try? decoder.decode(Country.self, from: data!)
+     XCTAssertNil(country)
    }
 }

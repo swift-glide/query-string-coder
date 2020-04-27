@@ -84,22 +84,11 @@ extension StringKeyValueDecoder: Decoder {
   }
 
   func unkeyedContainer() -> UnkeyedDecodingContainer {
-    assertCanCreateContainer()
-    precondition(container == nil)
-
-    let container = UnkeyedContainer(codingPath: codingPath, userInfo: userInfo)
-    self.container = container
-
-    return container
+    fatalError("Not supported")
   }
 
   func singleValueContainer() -> SingleValueDecodingContainer {
-    assertCanCreateContainer()
-
-    let container = SingleValueContainer(codingPath: codingPath, userInfo: userInfo)
-    self.container = container
-
-    return container
+    fatalError("Not supported")
   }
 }
 
