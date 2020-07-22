@@ -1,8 +1,8 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.3
 import PackageDescription
 
 let package = Package(
-  name: "QueryStringCoder",
+  name: "query-string-coder",
   platforms: [
     .macOS(.v10_15)
   ],
@@ -13,7 +13,7 @@ let package = Package(
       targets: ["QueryStringCoder"]),
   ],
   dependencies: [
-    .package(name: "Glide", url: "https://github.com/SwiftGlide/glide", .branch("master")),
+    .package(url: "https://github.com/SwiftGlide/glide", .branch("master")),
     .package(url: "https://github.com/apple/swift-nio", from: "2.12.0")
   ],
   targets: [
@@ -22,7 +22,7 @@ let package = Package(
     .target(
       name: "QueryStringCoder",
       dependencies: [
-        .product(name: "Glide", package: "Glide"),
+        .product(name: "Glide", package: "glide"),
       ],
       path: "Sources"
     ),
