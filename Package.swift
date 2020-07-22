@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.2
 import PackageDescription
 
 let package = Package(
@@ -13,8 +13,8 @@ let package = Package(
       targets: ["QueryStringCoder"]),
   ],
   dependencies: [
-    .package(url: "https://github.com/SwiftGlide/glide", .branch("master")),
-    .package(url: "https://github.com/apple/swift-nio", from: "2.12.0")
+    .package(url: "https://github.com/SwiftGlide/glide", from: "0.0.9"),
+    .package(url: "https://github.com/apple/swift-nio", from: "2.19.0")
   ],
   targets: [
     // Targets are the basic building blocks of a package. A target can define a module or a test suite.
